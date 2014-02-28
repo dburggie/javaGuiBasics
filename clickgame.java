@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class guitest extends JFrame implements ActionListener
+public class clickgame extends JFrame implements ActionListener
 {
 	
 	private JPanel mainPane;
