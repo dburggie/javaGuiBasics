@@ -19,7 +19,7 @@ public class clickgame extends JFrame implements ActionListener
 	private int clicks = 0;
 	private double score = 0.0, highscore = 0.0;
 	
-	public guitest()
+	public clickgame()
 	{
 		super("GUITEST EXTREME");
 		
@@ -219,7 +219,7 @@ public class clickgame extends JFrame implements ActionListener
 		}
 	}
 	
-	public static void main(String args[]) { new guitest(); }
+	public static void main(String args[]) { new clickgame(); }
 	
 }
 
