@@ -1,5 +1,10 @@
 *.class
 
+# build directories
+doc/
+classes/
+build/
+
 # Package Files #
 *.jar
 *.war
