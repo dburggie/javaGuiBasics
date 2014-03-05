@@ -11,11 +11,9 @@ public class demo extends JFrame implements ActionListener
 {
 	public static void main(String [] args) { new layout(); }
 	
-	private Buttons buttons = new Buttons();
-	private Panels panels = new Panels();
-	private Labels labels = new Labels();
+	MyButton topButton = null, bottomButton = null;
 	
-	private JPanel primary;
+	private MyPanel primary;
 	
 	
 	public demo()
@@ -34,10 +32,10 @@ public class demo extends JFrame implements ActionListener
 		this.setVisible(true);
 	}
 	
-	private JPanel init()
+	private MyPanel init()
 	{
 		
-		JPanel panel = new JPanel();
+		MyPanel panel = new MyPanel();
 		panel.setLayout(null);
 		panel.setSize(600,600);
 		panel.setLocation(0,0);
@@ -54,6 +52,18 @@ public class demo extends JFrame implements ActionListener
 		
 	}
 	
+	public void addButton(MyButton b)
+	{
+		if (bottomButton == null)
+		{
+			topButton = b; bottomButton = b;
+		}
+		else
+		{
+			bottomButton.insertAfter(b);
+		}
+	}
+	
 	private void update()
 	{
 		this.setVisible(true);
@@ -64,161 +74,111 @@ public class demo extends JFrame implements ActionListener
 		
 		Object source = event.getSource();
 		
-		if (source == buttons.bodies)
+		MyButton b = topButton;
+		while ( b != null )
 		{
-			labels.bodies.setText("Button: Pressed");
-		}
-		
-		if (source == buttons.preview)
-		{
-			labels.preview.setText("Button: Pressed");
-		}
-		
-		if (source == buttons.sky)
-		{
-			labels.sky.setText("Button: Pressed");
-		}
-		
-		if (source == buttons.camera)
-		{
-			labels.camera.setText("Button: Pressed");
-		}
-		
-		if (source == buttons.render)
-		{
-			labels.render.setText("Button: Pressed");
+			if (source == b)
+			{
+				b.click();
+			}
+			b = b.nextLink();
 		}
 		
 		this.update();
 	}
 	
-	private JPanel makeRenderPanel()
+	private MyPanel makeRenderPanel()
 	{
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setSize(200,200);
-		panel.setLocation(400,400);
-		panels.render = panel;
+		MyPanel panel = new MyPanel(400,400,200,200);
 		
 		JLabel text = new JLabel("Render Box");
 		text.setSize(200,50);
 		text.setLocation(0,0);
 		text.setHorizontalAlignment(0);
 		panel.add(text);
-		labels.render = text;
 		
-		JButton button = new JButton("RENDER");
-		button.setSize(200,20);
-		button.setLocation(0,180);
+		MyButton button = new MyButton(0,180,200,20,"RENDER");
 		button.addActionListener(this);
-		panel.add(button);
-		buttons.render = button;
+		panel.add( button );
+		this.addButton( button );
 		
 		return panel;
 		
 	}
 	
-	private JPanel makeCameraPanel()
+	private MyPanel makeCameraPanel()
 	{
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setSize(200,200);
-		panel.setLocation(200,400);
-		panels.camera = panel;
+		MyPanel panel = new MyPanel(200,400,200,200);
 		
 		JLabel text = new JLabel("Camera");
 		text.setSize(200,50);
 		text.setLocation(0,0);
 		text.setHorizontalAlignment(0);
 		panel.add(text);
-		labels.camera = text;
 		
-		JButton button = new JButton("reset Camera");
-		button.setSize(200,20);
-		button.setLocation(0,180);
+		MyButton button = new MyButton(0,180,200,20,"reset Camera");
 		button.addActionListener(this);
-		panel.add(button);
-		buttons.camera = button;
+		panel.add( button );
+		this.addButton( button );
 		
 		return panel;
 		
 	}
 	
-	private JPanel makeBodyPanel()
+	private MyPanel makeBodyPanel()
 	{
 		
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setSize(200,400);
-		panel.setLocation(0,0);
-		panels.bodies = panel;
+		MyPanel panel = new MyPanel(0,0,200,400);
 		
 		JLabel text = new JLabel("Body Panel");
 		text.setSize(200,50);
 		text.setLocation(0,0);
 		text.setHorizontalAlignment(0);
 		panel.add(text);
-		labels.bodies = text;
 		
-		JButton button = new JButton("Add a new Body!");
-		button.setLocation(0,380);
-		button.setSize(200,20);
+		MyButton button = new MyButton(0,380,200,20,"Add a new Body!");
 		button.addActionListener(this);
-		panel.add(button);
-		buttons.bodies = button;
+		panel.add( button );
+		this.addButton( button );
 		
 		return panel;
 		
 	}
 	
-	private JPanel makePreviewPanel()
+	private MyPanel makePreviewPanel()
 	{
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setSize(400,400);
-		panel.setLocation(200,0);
-		panels.preview = panel;
+		MyPanel panel = new MyPanel(200,0,400,400);
 		
 		JLabel text = new JLabel("This is the preview panel.");
 		text.setSize(400,50);
 		text.setLocation(0,0);
 		text.setHorizontalAlignment(0);
 		panel.add(text);
-		labels.preview = text;
 		
-		JButton button = new JButton("refresh preview");
-		button.setSize(400,20);
-		button.setLocation(0,380);
+		MyButton button = new MyButton(0,380,400,20,"refresh preview");
 		button.addActionListener(this);
-		panel.add(button);
-		buttons.preview = button;
+		panel.add( button );
+		this.addButton( button );
 		
 		return panel;
 		
 	}
 	
-	private JPanel makeSkyPanel()
+	private MyPanel makeSkyPanel()
 	{
 		
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setSize(200,200);
-		panel.setLocation(0,400);
-		panels.sky = panel;
+		MyPanel panel = new MyPanel(0,400,200,200);
 		
 		JLabel text = new JLabel("Sky Panel");
 		text.setSize(200,50);
 		text.setLocation(0,0);
 		text.setHorizontalAlignment(0);
 		panel.add(text);
-		labels.sky = text;
 		
-		JButton button = new JButton("Set Sky");
-		button.setSize(200,20);
-		button.setLocation(0,180);
+		MyButton button = new MyButton(0,180,200,20,"Set Sky");
 		button.addActionListener(this);
-		panel.add(button);
-		buttons.sky = button;
+		panel.add( button );
+		this.addButton( button );
 		
 		return panel;
 		

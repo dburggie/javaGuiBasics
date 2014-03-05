@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MyButton extends JButton
+public class MyButton extends JButton implements ObjectLinker
 {
 	//stuff
 	
@@ -13,57 +13,58 @@ public class MyButton extends JButton
 	private String text = "";
 	public Type type = Type.NULL;
 	
-	MyPanel parentPanel = null;
-	private int ppw = 0, pph = 0;
+	int width, height, parentWidth, parentHeight;
+	int xpos, ypos;
 	
-	MyFrame parentFrame = null;
-	private int pfw = 0, pfh = 0;
-	
-	public MyButton(int x, int y, int w, int h, String messege, Type t)
+	public MyButton(int x, int y, int w, int h, String message)
 	{
-		super(messege);
-		text = messege;
+		super(message);
+		text = message;
+		this.setLocation(0,0);
+		this.setSize(w,h);
+		type = Type.NULL;
+	}
+	
+	public MyButton(int w, int h, String message)
+	{
+		super(message);
+		text = message;
 		this.setLocation(x,y);
 		this.setSize(w,h);
-		type = t;
-	}
-	/*
-	public MyButton(int x, int y, int w, int h, String messege)
-	{
-		MyButton(x,y,w,h,messege,Type.NULL);
+		type = Type.NULL;
 	}
 	
-	public MyButton(int x, int y, int w, int h)
-	{
-		MyButton(x,y,w,h,"",Type.NULL);
-	}
-	*/
 	public void setType(Type t)
 	{
 		type = t;
 	}
 	
 	@Override
-	public void registerFrame(MyFrame frame)
+	public void setText(String t)
 	{
-		parentFrame = frame;
-		pfw = panel.getWidth();
-		pfh = panel.getHeight();
-		button.addActionListener(parentFrame);
+		super.setText(t)
+		text = t;
 	}
 	
 	@Override
-	public void registerPanel(MyPanel panel)
+	public void setPosition(int x, int y)
 	{
-		parentPanel = panel;
-		ppw = panel.getWidth();
-		pph = panel.getHeight();
-		parentFrame = panel.getParentFrame();
+		super.setPosition(x,y);
+		xpos = x;
+		ypos = y;
+	}
+	
+	@Override
+	public void setSize(int w, int h)
+	{
+		super.setSize(w,h);
+		width = w; height = h;
 	}
 	
 	public void click()
 	{
-		if (type = Type.JUMPING) this.jump();
+		if (type == Type.JUMPING) this.jump();
+		if (type == Type.NULL) this.setText("CLICKED");
 	}
 	
 	public void jump()
@@ -76,4 +77,49 @@ public class MyButton extends JButton
 		
 		this.setLocation(x,y);
 	}
+	
+	public int getXposition() { return xpos; }
+	public int getYposition() { return ypos; }
+	public int getWidth() { return width; }
+	public int getHeight() { return height; }
+	
+	private ObjectLinker nextInChain;
+	private ObjectLinkder prevInChain;
+	
+	/** Get the next object in the chain. */
+	@Override
+	public ObjectLinker nextLink()
+	{
+		return nextInChain;
+	}
+	
+	/** Get the previous object in the chain. */
+	@Override
+	public ObjectLinker prevLink()
+	{
+		return prevInChain;
+	}
+	
+	/** Insert a new link before this one. */
+	@Override
+	public void insertBefore(ObjectLinker obj)
+	{
+		if (preInChain != obj)
+		{
+			prevInChain = obj;
+			obj.insertAfter(this);
+		}
+	}
+	
+	/** Insert a new link after this one. */
+	@Override
+	public void insertAfter(ObjectLinker obj)
+	{
+		if (nextInChain != obj)
+		{
+			nextInChain = obj;
+			obj.insertBefore(this);
+		}
+	}
+	
 }
