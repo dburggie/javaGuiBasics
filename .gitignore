@@ -1,6 +1,7 @@
 *.class
 
 # build directories
+ignore/
 doc/
 classes/
 build/
