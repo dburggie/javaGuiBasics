@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MyPanel extends JPanel implements ObjectLinker
+public class MyPanel extends JPanel
 {
 	
 	private int xpos, ypos, width, height;
@@ -17,9 +17,9 @@ public class MyPanel extends JPanel implements ObjectLinker
 	public MyPanel(int x, int y, int w, int h)
 	{
 		super();
-		xpos = x; ypos = y; width = w; height = h;
+		this.setLocation(x,y);
+		this.setSize(w,h);
 		this.setLayout(null);
-		this.update();
 		nextInChain = null; prevInChain = null;
 	}
 	
@@ -42,28 +42,25 @@ public class MyPanel extends JPanel implements ObjectLinker
 	public int getWidth() { return width; }
 	public int getHeight() { return height; }
 	
-	private ObjectLinker nextInChain;
-	private ObjectLinkder prevInChain;
+	private MyPanel nextInChain;
+	private MyPanel prevInChain;
 	
 	/** Get the next object in the chain. */
-	@Override
-	public ObjectLinker nextLink()
+	public MyPanel nextLink()
 	{
 		return nextInChain;
 	}
 	
 	/** Get the previous object in the chain. */
-	@Override
-	public ObjectLinker prevLink()
+	public MyPanel prevLink()
 	{
 		return prevInChain;
 	}
 	
 	/** Insert a new link before this one. */
-	@Override
-	public void insertBefore(ObjectLinker obj)
+	public void insertBefore(MyPanel obj)
 	{
-		if (preInChain != obj)
+		if (prevInChain != obj)
 		{
 			prevInChain = obj;
 			obj.insertAfter(this);
@@ -71,8 +68,7 @@ public class MyPanel extends JPanel implements ObjectLinker
 	}
 	
 	/** Insert a new link after this one. */
-	@Override
-	public void insertAfter(ObjectLinker obj)
+	public void insertAfter(MyPanel obj)
 	{
 		if (nextInChain != obj)
 		{

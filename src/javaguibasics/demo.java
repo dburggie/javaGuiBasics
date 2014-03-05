@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public class demo extends JFrame implements ActionListener
 {
-	public static void main(String [] args) { new layout(); }
+	public static void main(String [] args) { new demo(); }
 	
 	MyButton topButton = null, bottomButton = null;
 	
@@ -35,10 +35,7 @@ public class demo extends JFrame implements ActionListener
 	private MyPanel init()
 	{
 		
-		MyPanel panel = new MyPanel();
-		panel.setLayout(null);
-		panel.setSize(600,600);
-		panel.setLocation(0,0);
+		MyPanel panel = new MyPanel(0,0,600,600);
 		
 		panel.add( this.makeBodyPanel() );
 		panel.add( this.makePreviewPanel() );
@@ -61,6 +58,7 @@ public class demo extends JFrame implements ActionListener
 		else
 		{
 			bottomButton.insertAfter(b);
+			bottomButton = b;
 		}
 	}
 	
@@ -72,6 +70,8 @@ public class demo extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent event)
 	{
 		
+		System.out.println("Something Happened!");
+		
 		Object source = event.getSource();
 		
 		MyButton b = topButton;
@@ -79,6 +79,7 @@ public class demo extends JFrame implements ActionListener
 		{
 			if (source == b)
 			{
+				System.out.println("  We clicked: " + b.getText() );
 				b.click();
 			}
 			b = b.nextLink();
