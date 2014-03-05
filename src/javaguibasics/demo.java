@@ -1,35 +1,13 @@
 
+package javaguibasics;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-class Buttons { 
-	
-	public JButton preview, bodies, render, camera, sky;
 
-	public Buttons() { bodies = null; preview = null; sky = null; camera = null; render = null; }
-	
-}
 
-class Panels
-{
-	
-	public JPanel bodies, preview, sky, camera, render;
-	
-	public Panels() { bodies = null; preview = null; sky = null; camera = null; render = null; }
-	
-}
-
-class Labels
-{
-	
-	public JLabel bodies, preview, sky, camera, render;
-	
-	public Labels() { bodies = null; preview = null; sky = null; camera = null; render = null; }
-	
-}
-
-public class layout extends JFrame implements ActionListener
+public class demo extends JFrame implements ActionListener
 {
 	public static void main(String [] args) { new layout(); }
 	
@@ -40,7 +18,7 @@ public class layout extends JFrame implements ActionListener
 	private JPanel primary;
 	
 	
-	public layout()
+	public demo()
 	{
 		super("Test Layout");
 		
