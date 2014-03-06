@@ -3,9 +3,13 @@ package javaguibasics;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.border.*;
 
 public class MyPanel extends JPanel
 {
+	
+	private final Border stdborder = 
+		BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 	
 	private int xpos, ypos, width, height;
 	
@@ -19,6 +23,7 @@ public class MyPanel extends JPanel
 		super();
 		this.setLocation(x,y);
 		this.setSize(w,h);
+		this.setBorder(stdborder);
 		this.setLayout(null);
 		nextInChain = null; prevInChain = null;
 	}
