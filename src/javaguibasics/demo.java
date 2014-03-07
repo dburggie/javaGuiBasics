@@ -23,7 +23,7 @@ public class demo extends JFrame implements ActionListener
 		this.setDefaultLookAndFeelDecorated(true);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(650,650);
+		this.setSize(600,600);
 		
 		Container con = this.getContentPane(); // inherit main frame
 		primary = this.init();
